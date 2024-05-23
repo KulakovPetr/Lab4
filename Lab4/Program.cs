@@ -12,7 +12,8 @@ namespace Lab4
         static int ColumnCount;
         static int[,] MatrixA;
         static int[,] MatrixB;
-        static int[,] MatrixC;
+        static long[,] MatrixC;
+        static Random rnd = new Random();
         static void Main(string[] args)
         {
             Console.WriteLine("Случайная матрица");
@@ -28,11 +29,11 @@ namespace Lab4
             Console.WriteLine("Введите количество столбцов в матрице");
             ColumnCount = int.Parse(Console.ReadLine());
             MatrixA = new int[RowCount, ColumnCount];
-            Random rnd = new Random();
+            
             long summ = 0;
             for (int i = 0; i < RowCount; i++)
             {
-                for (int j = 0; j < RowCount; j++)
+                for (int j = 0; j < ColumnCount; j++)
                 {
                     MatrixA[i, j] = rnd.Next(int.MinValue, int.MaxValue);
                     summ += MatrixA[i, j];
@@ -44,13 +45,15 @@ namespace Lab4
 
         static void Task2()
         {
-            Random rnd = new Random();
+            MatrixB = new int[RowCount, ColumnCount]; 
+            MatrixC = new long[RowCount, ColumnCount];
+            
             for (int i = 0; i < RowCount; i++)
             {
-                for (int j = 0; j < RowCount; j++)
+                for (int j = 0; j < ColumnCount; j++)
                 {
                     MatrixB[i, j] = rnd.Next(int.MinValue, int.MaxValue);
-                    MatrixC[i, j] = MatrixA[i, j]+ MatrixB[i, j];
+                    MatrixC[i, j] = (long)MatrixA[i, j]+ MatrixB[i, j];
                 }
             }
             Console.WriteLine($"Матрица A");
@@ -67,7 +70,18 @@ namespace Lab4
         {
             for (int i = 0; i < RowCount; i++)
             {
-                for (int j = 0; j < RowCount; j++)
+                for (int j = 0; j < ColumnCount; j++)
+                {
+                    Console.Write($"{m[i, j]}, ");
+                }
+                Console.Write("\n");
+            }
+        }
+        static void ShowMatrix(long[,] m)
+        {
+            for (int i = 0; i < RowCount; i++)
+            {
+                for (int j = 0; j < ColumnCount; j++)
                 {
                     Console.Write($"{m[i, j]}, ");
                 }
